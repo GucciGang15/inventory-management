@@ -16,6 +16,8 @@ int main() {
     int totalProductos = 0;
     int option;
 	int encontrado = 0;
+	int codigoModificar;
+	int indiceModificar = -1;
 	
     do
     {
@@ -116,6 +118,98 @@ int main() {
 
             case 2:
                 // Modificar producto
+                if (totalProductos == 0) {
+                    printf("El intario esta vacio\n");
+                    break;
+                }
+
+                printf("\nIngrese el codigo del producto que desea modificar: ");
+                scanf("%d", &codigoModificar);
+
+                // Buscando el producto por su codigo
+                for(int i = 0; i < totalProductos; i++) {
+                    if (inventario[i].codigo == codigoModificar) {
+                        indiceModificar = i;
+                        break;
+                    }
+                }
+
+                if (indiceModificar == -1){
+                    printf("No hay un producto con ese codigo en el inventario.\n");
+                    break;
+                }
+
+                // Menu para modificar el producto
+                int optionModificar;
+                printf("\nMenu de modificacion\n");
+                printf("1. Modificar nombre\n");
+                printf("2. Modificar cantidad\n");
+                printf("3. Modificar precio\n");
+                printf("0. Cancelar\n");
+                printf("Que desea hacer?: ");
+                scanf("%d", &optionModificar);
+                
+                switch (optionModificar)
+                {
+                case 1:
+                    // Modificar nombre
+                    do{
+
+                        printf("Ingrese el nuevo nombre: ");
+                        scanf("%s", inventario[indiceModificar].nombre);
+
+                        if (strlen(inventario[indiceModificar].nombre) == 0) {
+                            printf("ERROR: El nombre no puede estar vacio.\n");
+                        }
+                        
+                    } while (strlen(inventario[indiceModificar].nombre) == 0);
+                    
+                    break;
+
+                case 2:
+                    // Modificar cantidad
+                    do{
+
+                        printf("Ingrese la nueva cantidad: ");
+                        scanf("%f", &inventario[indiceModificar].cantidad);
+
+                        if (inventario[indiceModificar].cantidad <= 0) {
+                            printf("ERROR: La cantidad debe ser mayor que 0.\n");
+                        }
+
+                    } while (inventario[indiceModificar].cantidad <= 0);
+
+                    break;
+
+                case 3:
+                    // Modificar precio
+                    do{
+
+                        printf("Ingrese el nuevo precio: ");
+                        scanf("%f", &inventario[indiceModificar].precio);
+
+                        if (inventario[indiceModificar].precio <= 0) {
+                            printf("ERROR: El precio debe ser mayor que 0.\n");
+                        }
+
+                    } while (inventario[indiceModificar].precio <= 0);
+
+                    break;
+                
+                case 0:
+                    printf("Saliendo del menu de modificacion...\n");
+                    break;
+                
+                default:
+                    printf("ERROR. La opcion ingresada no es valida. Saliendo del menu de modificacion...\n");
+                    break;
+                }
+                
+                // Recalcular total (solo si se modificó algo)
+                inventario[indiceModificar].total = inventario[indiceModificar].cantidad * inventario[indiceModificar].precio;
+
+                printf("El producto ha sido modificado exitosamente.\n");
+
                 break;
 
             case 3:
