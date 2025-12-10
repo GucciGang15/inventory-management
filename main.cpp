@@ -391,7 +391,7 @@ int main() {
 
                 break;
 
-            case 0:
+            case 0:{
 
                 printf("\nGuardando inventario en 'inventario.txt'...\n");
 
@@ -411,6 +411,7 @@ int main() {
                 printf("Inventario guardado exitosamente.\n");
                 printf("Gracias por usar el programa\n");
                 break;
+            }
 
             default:
                 printf("Opcion invalida. Por favor intente de nuevo.\n");
