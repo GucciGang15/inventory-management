@@ -23,6 +23,29 @@ int main() {
 	int indiceEliminar = -1;
     float valorTotalInventario = 0.0f;
     int bajoStock = 0;
+
+
+    // -----Cargadndir inventariio desde archivo 
+
+    FILE *archivo = fopen("inventario.txt", "r");
+
+    if (archivo == NULL) {
+        printf("No se encontro el archivo 'inventario.txt'. Se creara uno nuevo al salir del programa.\n");
+    }else{
+        printf("Cargando inventario desde 'inventario.txt'...\n");
+
+        while (fscanf(archivo, "%d %49s %f %f %f\n", &inventario[totalProductos].codigo, inventario[totalProductos].nombre, &inventario[totalProductos].cantidad, &inventario[totalProductos].precio, &inventario[totalProductos].total) == 5) {
+            codigos[totalProductos] = inventario[totalProductos].codigo;
+            totalProductos++;
+        }
+        fclose(archivo);
+        printf("Inventario cargado exitosamente. Total de productos: %d\n\n", totalProductos);
+        
+    }
+    
+
+
+
 	
     do
     {
@@ -139,7 +162,7 @@ int main() {
                     }
                 }
 
-                if (indiceModificar = -1){
+                if (indiceModificar == -1){
                     printf("No hay un producto con ese codigo en el inventario.\n");
                     break;
                 }
@@ -369,6 +392,23 @@ int main() {
                 break;
 
             case 0:
+
+                printf("\nGuardando inventario en 'inventario.txt'...\n");
+
+                FILE *archivoSalida = fopen("inventario.txt", "w");
+
+                if (archivoSalida == NULL) {
+                    printf("ERROR: No se pudo abrir el archivo para guardar.\n");
+                    break;
+                }
+
+                for(int i = 0; i < totalProductos; i++) {
+                    fprintf(archivoSalida, "%d %s %.2f %.2f %.2f\n", inventario[i].codigo, inventario[i].nombre, inventario[i].cantidad, inventario[i].precio, inventario[i].total);
+                }
+
+                fclose(archivoSalida);
+                
+                printf("Inventario guardado exitosamente.\n");
                 printf("Gracias por usar el programa\n");
                 break;
 
