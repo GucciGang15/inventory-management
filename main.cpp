@@ -99,7 +99,7 @@ int main() {
                 do {
 
                     printf("Ingrese el nombre del producto: ");
-                    scanf("%s", nuevo.nombre);
+                    scanf(" %[^\n]", nuevo.nombre);
 
                     if (strlen(nuevo.nombre) == 0) {
                         printf("ERROR: El nombre no puede estar vacio.\n");
@@ -184,7 +184,7 @@ int main() {
                     do{
 
                         printf("Ingrese el nuevo nombre: ");
-                        scanf("%s", inventario[indiceModificar].nombre);
+                        scanf(" %[^\n]", inventario[indiceModificar].nombre);
 
                         if (strlen(inventario[indiceModificar].nombre) == 0) {
                             printf("ERROR: El nombre no puede estar vacio.\n");
@@ -376,7 +376,7 @@ int main() {
 
                 bajoStock = 0;
                 for (int i = 0; i < totalProductos; i++) {
-                    if (inventario[i].cantidad < 10) {
+                    if (inventario[i].cantidad <= 10) {
                         printf("| %-6d | %-20s | %-8.2f |\n", inventario[i].codigo, inventario[i].nombre, inventario[i].cantidad);
                         bajoStock = 1;
                     }
