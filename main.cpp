@@ -14,6 +14,7 @@ int main() {
     struct producto inventario[100];
     int codigos[100];
     int totalProductos = 0;
+    int codigoRepetido = 0;
     int option;
 	int encontrado = 0;
 	int codigoModificar;
@@ -271,6 +272,22 @@ int main() {
 
             case 4:
                 // --Mostrar todos los productos
+                if (totalProductos == 0){
+                    printf("El inventario esta vacio.\n");
+                    break;
+                }
+
+                printf("\n--- LISTA COMPLETA DE PRODUCTOS ---\n");
+                printf("+--------+----------------------+----------+----------+----------+\n");
+                printf("| Codigo |        Nombre        | Cantidad |  Precio  |   Total  |\n");
+                printf("+--------+----------------------+----------+----------+----------+\n");
+
+                for (int i = 0; i < totalProductos; i++){
+                    printf("| %-6d | %-20s | %-8.2f | %-8.2f | %-8.2f |\n", inventario[i].codigo, inventario[i].nombre, inventario[i].cantidad, inventario[i].precio, inventario[i].total);
+                }
+                printf("+--------+----------------------+----------+----------+----------+\n");
+                printf("Total de los productos en el inventario: %d\n", totalProductos);
+
                 break;
 
             case 5:
