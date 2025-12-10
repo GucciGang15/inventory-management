@@ -15,7 +15,8 @@ int main() {
     int codigos[100];
     int totalProductos = 0;
     int option;
-
+	int encontrado = 0;
+	
     do
     {
         printf("\n=======================================\n");
@@ -35,6 +36,7 @@ int main() {
         switch (option) {
 
             case 1: {
+                // --Agregar producto
 
                 // Verificar si hay espacio en el inventario
                 if (totalProductos >= 100) {
@@ -113,7 +115,7 @@ int main() {
             }
 
             case 2:
-                // Modificar inventario
+                // Modificar producto
                 break;
 
             case 3:
@@ -125,7 +127,41 @@ int main() {
                 break;
 
             case 5:
-                // Buscar producto
+                // --Buscar producto
+
+                // Verificar si el total de productos no es cero
+                if (totalProductos == 0) {
+                    printf("El invetario esta vacio.\n");
+                    break;
+                }
+
+                int codigoBuscado;
+
+                printf("\nIngrese el codigo del producto que desea encontrar: ");
+                scanf("%d", &codigoBuscado);
+
+                for (int i = 0; i < totalProductos; i++){
+                    if (inventario[i].codigo == codigoBuscado) {
+                        printf("--------------------------------\n");
+                        printf("El codigo ingresado ha coincidido con un producto del inventario:\n");
+                        printf("--------------------------------\n");
+                        printf("Codigo: %d\n", inventario[i].codigo);
+                        printf("Nombre: %s\n", inventario[i].nombre);
+                        printf("Cantidad: %.2f\n", inventario[i].cantidad);
+                        printf("Precio: %.2f\n", inventario[i].precio);
+                        printf("Total: %.2f\n", inventario[i].total);
+                        printf("--------------------------------\n");
+
+                        encontrado = 1;
+                        break;
+                    }
+                    
+                }
+                
+                if (!encontrado) {
+                    printf("No existe un prducto registradi con ese codigo.\n");
+                }
+
                 break;
 
             case 6:
