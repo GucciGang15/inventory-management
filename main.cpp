@@ -21,6 +21,8 @@ int main() {
 	int indiceModificar = -1;
 	int codigoEliminar;
 	int indiceEliminar = -1;
+    float valorTotalInventario = 0.0f;
+    int bajoStock = 0;
 	
     do
     {
@@ -137,7 +139,7 @@ int main() {
                     }
                 }
 
-                if (indiceModificar == -1){
+                if (indiceModificar = -1){
                     printf("No hay un producto con ese codigo en el inventario.\n");
                     break;
                 }
@@ -331,7 +333,39 @@ int main() {
                 break;
 
             case 6:
-                // Reportes y estadisticas
+                // --Reportes y estadisticas
+                printf("--------------------------------\n");
+                printf("--- REPORTES Y ESTADISTICAS ---\n");
+                printf("--------------------------------\n");
+                printf("Total de productos registrados en el inventario: %d\n", totalProductos);
+
+                valorTotalInventario = 0.0f;
+                for (int i = 0; i < totalProductos; i++) {
+                    valorTotalInventario += inventario[i].total;
+                }
+                printf("Valor total del inventario: %.2f\n", valorTotalInventario);
+
+                printf("--------------------------------\n");
+                printf("Productos con bajo stock (cantidad <= 10):\n");
+                printf("+--------+----------------------+----------+\n");
+                printf("| Codigo |        Nombre        | Cantidad |\n");
+                printf("+--------+----------------------+----------+\n");
+
+                bajoStock = 0;
+                for (int i = 0; i < totalProductos; i++) {
+                    if (inventario[i].cantidad < 10) {
+                        printf("| %-6d | %-20s | %-8.2f |\n", inventario[i].codigo, inventario[i].nombre, inventario[i].cantidad);
+                        bajoStock = 1;
+                    }
+                }
+
+                printf("+--------+----------------------+----------+\n");
+
+                if (!bajoStock) {
+                    printf("No hay productos con stock bajo.\n");
+                }
+                
+
                 break;
 
             case 0:
