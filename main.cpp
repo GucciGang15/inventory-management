@@ -18,6 +18,8 @@ int main() {
 	int encontrado = 0;
 	int codigoModificar;
 	int indiceModificar = -1;
+	int codigoEliminar;
+	int indiceEliminar = -1;
 	
     do
     {
@@ -117,7 +119,7 @@ int main() {
             }
 
             case 2:
-                // Modificar producto
+                // --Modificar producto
                 if (totalProductos == 0) {
                     printf("El intario esta vacio\n");
                     break;
@@ -213,15 +215,68 @@ int main() {
                 break;
 
             case 3:
-                // Eliminar producto
+                // --Eliminar producto
+                if (totalProductos == 0){
+                    printf("El inventario esta vacio.\n");
+                    break;
+                }
+            
+                printf("\nIngrese el codigo del producto a eliminar: ");
+                scanf("%d", &codigoEliminar);
+                indiceEliminar = -1;
+
+
+                // Buscando el indice del producto que vamos a elminar
+                for (int i = 0; i < totalProductos; i++){
+                    if  (inventario[i].codigo == codigoEliminar){
+                        indiceEliminar = i;
+                        break;
+                    }
+                }
+                
+                if (indiceEliminar == -1){
+                    printf("No existe un producto registrado con el codigo ingresado.\n");
+                    break;
+                }
+
+                // Mostrando el producto que coincidio con el codigo que se desea eliminar
+                printf("--------------------------------\n");
+                printf("Codigo: %d\n", inventario[indiceEliminar].codigo);
+                printf("Nombre: %s\n", inventario[indiceEliminar].nombre);
+                printf("Cantidad: %.2f\n", inventario[indiceEliminar].cantidad);
+                printf("Precio: %.2f\n", inventario[indiceEliminar].precio);
+                printf("Total: %.2f\n", inventario[indiceEliminar].total);
+                printf("--------------------------------\n");
+
+                // Confirmando que si se desea eliminar el registro del producto
+                char confirmacion;
+                printf("Desea realmente eliminar el producto? (s/n): ");
+                scanf(" %c", &confirmacion);
+
+                if (confirmacion != 's' && confirmacion != 'S') {
+                    printf("Cancelando...\n");
+                    break;
+                }
+                
+                // Un if demasiado fascinante, para mover de lugar todas las posiciones de manera consecutiva
+                for (int i = indiceEliminar; i < totalProductos - 1; i++){
+                    inventario[i] = inventario[i + 1];
+                    codigos[i] = codigos[i + 1];
+                }
+                
+                totalProductos--;
+                printf("El producto  ha sido eliminado exitosamente.\n");
+
                 break;
 
             case 4:
-                // Mostrar todos los productos
+                // --Mostrar todos los productos
                 break;
 
             case 5:
                 // --Buscar producto
+
+                encontrado = 0;  
 
                 // Verificar si el total de productos no es cero
                 if (totalProductos == 0) {
@@ -253,7 +308,7 @@ int main() {
                 }
                 
                 if (!encontrado) {
-                    printf("No existe un prducto registradi con ese codigo.\n");
+                    printf("No existe un producto registrado con ese codigo.\n");
                 }
 
                 break;
